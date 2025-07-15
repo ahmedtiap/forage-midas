@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: midas-core
+
+  kafka:
+    # point to the embedded broker in tests
+    bootstrap-servers: ${spring.embedded.kafka.brokers}
+
+general:
+  # give KafkaProducer something to inject
+  kafka-topic: test-topic
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    com.jpmc.midascore: DEBUG
