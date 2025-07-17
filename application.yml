@@ -6,9 +6,26 @@ spring:
     # point to the embedded broker in tests
     bootstrap-servers: ${spring.embedded.kafka.brokers}
 
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: midas-core-group
+        # (optional, but often useful)
+      auto-offset-reset: earliest
+      properties:
+        spring.json.trusted.packages: com.jpmc.midascore.foundation
+
+transactions:
+  topic:
+    name: ${general.kafka-topic}
+
 general:
   # give KafkaProducer something to inject
-  kafka-topic: test-topic
+  kafka-topic: transaction-topic
+
 
 server:
   port: 8080
